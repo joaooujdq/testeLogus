@@ -8,30 +8,28 @@ import org.springframework.hateoas.RepresentationModel;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @JsonPropertyOrder({"idcadusuario", "dcr_usuario", "dcr_login", "dcr_senha", "dat_cadastro", "dat_desativar"})
 public class UsuarioDTO extends RepresentationModel<UsuarioDTO>  {
     
     @JsonProperty("idcadusuario")
     private Integer codigo;
-    
-    @NotBlank
+
     @JsonProperty("dcr_usuario")
     private String usuario;
 
-    @NotBlank
     @JsonProperty("dcr_login")
     private String login;
 
-    @NotBlank
     @JsonProperty("dcr_senha")
     private String senha;
     
     @JsonProperty("dat_cadastro")
-    private LocalDate datCadastro;
+    private LocalDateTime datCadastro;
 
     @JsonProperty("dat_desativar")
-    private LocalDate datDesativar;
+    private LocalDateTime datDesativar;
     
     public UsuarioDTO(){
 
@@ -78,20 +76,21 @@ public class UsuarioDTO extends RepresentationModel<UsuarioDTO>  {
         this.senha = senha;
     }
 
-    public LocalDate getDatCadastro() {
+    public LocalDateTime getDatCadastro() {
         return datCadastro;
     }
 
-    public void setDatCadastro(LocalDate datCadastro) {
+    public void setDatCadastro(LocalDateTime datCadastro) {
         this.datCadastro = datCadastro;
     }
 
-    public LocalDate getDatDesativar() {
+    public LocalDateTime getDatDesativar() {
         return datDesativar;
     }
 
-    public void setDatDesativar(LocalDate datDesativar) {
+    public void setDatDesativar(LocalDateTime datDesativar) {
         this.datDesativar = datDesativar;
     }
+
 
 }

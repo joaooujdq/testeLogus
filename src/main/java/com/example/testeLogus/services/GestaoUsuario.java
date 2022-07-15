@@ -46,18 +46,19 @@ public class GestaoUsuario {
 
     @Transactional
     public UsuarioDTO save(Usuario obj) {
-        boolean loginExists = usuarioDAO.findByLogin(obj.getLogin()).stream().anyMatch(objResult -> !objResult.equals(obj));
+       boolean loginExists = usuarioDAO.findByLogin(obj.getLogin()).stream().anyMatch(objResult -> !objResult.equals(obj));
         Pattern digit = Pattern.compile("[0-9]");
         Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
         Matcher hasDigit = digit.matcher(obj.getSenha());
         Matcher hasSpecial = special.matcher(obj.getSenha());
         if(obj.getSenha()=="" || obj.getUsuario()=="" || obj.getLogin()==""){
             throw new BusinessException("Os campos com * são obrigatórios!");
-        }else if(obj.getSenha().length() < 8 && hasDigit.find() && hasSpecial.find()){
+        }else if(obj.getSenha().length() < 8 || !hasDigit.find() || !hasSpecial.find()) {
             throw new BusinessException("A senha deve ter no mínimo 8 caracteres, 1 número e 1 símbolo.");
-        } else if (loginExists) {
-            throw new BusinessException("Login já existente!");
         }
+      else if (loginExists) {
+         throw new BusinessException("Login já existente!");
+       }
         return new UsuarioDTO(usuarioDAO.save(obj));
     }
 

@@ -4,6 +4,7 @@ package com.example.testeLogus.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,26 +22,25 @@ public class Usuario{
     @Column(name = "dcr_login", nullable = false, length = 45)
     private String login;
 
-    @Column(name = "dcr_senha", nullable = false, length = 255)
+    @Column(name = "dcr_senha", nullable = false, length = 250)
     private String senha;
 
     @Column(name = "dat_cadastro", nullable = false)
-    private LocalDate datCadastro;
+    private LocalDateTime datCadastro = getCurrentLocalDateTime();
 
     @Column(name = "dat_desativacao")
-    private LocalDate datDesativar;
+    private LocalDateTime datDesativar;
 
     public Usuario(){
 
     }
 
     public Usuario(Integer codigo, String usuario, String login, String senha) {
+        LocalDate agora = LocalDate.now();
         this.codigo = codigo;
         this.usuario = usuario;
         this.login = login;
         this.senha = senha;
-        LocalDate agora = LocalDate.now();
-        this.datCadastro = agora;
     }
 
     public Integer getCodigo() {
@@ -75,22 +75,25 @@ public class Usuario{
         this.senha = senha;
     }
 
-    public LocalDate getDatCadastro() {
+    public LocalDateTime getDatCadastro() {
         return datCadastro;
     }
 
-    public void setDatCadastro(LocalDate datCadastro) {
+    public void setDatCadastro(LocalDateTime datCadastro) {
         this.datCadastro = datCadastro;
     }
 
-    public LocalDate getDatDesativar() {
+    public LocalDateTime getDatDesativar() {
         return datDesativar;
     }
 
-    public void setDatDesativar(LocalDate datDesativar) {
+    public void setDatDesativar(LocalDateTime datDesativar) {
         this.datDesativar = datDesativar;
     }
 
+    private LocalDateTime getCurrentLocalDateTime() {
+        return LocalDateTime.now();
+    }
     }
 
 
